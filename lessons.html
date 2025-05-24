@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessons - Cognifai</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Cognifai</a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="lessons.html">Lessons</a>
+                <a href="chat.html">Chat</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+        <!-- Empty State -->
+        <div class="card" style="text-align: center; padding: 3rem;">
+            <h2>No Lessons Yet</h2>
+            <p style="margin: 1rem 0;">Get started by chatting with our AI to create your personalized lesson plan.</p>
+            <a href="chat.html" class="btn" style="display: inline-block; width: auto;">Chat with AI</a>
+        </div>
+
+        <!-- Lesson List (Hidden by default) -->
+        <div id="lessonList" style="display: none;">
+            <!-- Course Progress -->
+            <div class="welcome-strip">
+                <h1>Your Learning Path</h1>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                    <div class="progress-bar" style="flex-grow: 1;">
+                        <div class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span>0% Complete</span>
+                </div>
+            </div>
+
+            <!-- Course Categories -->
+            <div class="grid grid-3" style="margin-bottom: 2rem;">
+                <div class="card" style="cursor: pointer; transition: transform 0.2s;" onclick="filterLessons('all')">
+                    <h3>All Courses</h3>
+                    <p>Browse all available courses</p>
+                </div>
+                <div class="card" style="cursor: pointer; transition: transform 0.2s;" onclick="filterLessons('in-progress')">
+                    <h3>In Progress</h3>
+                    <p>Continue your learning journey</p>
+                </div>
+                <div class="card" style="cursor: pointer; transition: transform 0.2s;" onclick="filterLessons('completed')">
+                    <h3>Completed</h3>
+                    <p>Review your achievements</p>
+                </div>
+            </div>
+
+            <!-- Course List -->
+            <div class="grid grid-2" style="gap: 2rem;" id="courseList">
+                <!-- Lessons will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Check if there are any lessons
+            const lessons = JSON.parse(localStorage.getItem('lessons') || '[]');
+            if (lessons.length > 0) {
+                document.querySelector('.card').style.display = 'none';
+                document.getElementById('lessonList').style.display = 'block';
+                displayLessons(lessons);
+            }
+        }
+
+        function displayLessons(lessons) {
+            const courseList = document.getElementById('courseList');
+            courseList.innerHTML = lessons.map(lesson => `
+                <div class="card lesson-card">
+                    <div style="display: flex; gap: 1.5rem;">
+                        <div style="flex: 1;">
+                            <h3>${lesson.title}</h3>
+                            <p>${lesson.description}</p>
+                            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                                <span>⏱️ ${lesson.duration}</span>
+                                <span>📚 ${lesson.difficulty}</span>
+                            </div>
+                            <div class="progress-bar" style="margin-top: 1rem;">
+                                <div class="progress-bar-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <button class="btn">Start</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterLessons(category) {
+            // Add active state to selected category
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.transform = 'none';
+            });
+            event.currentTarget.style.transform = 'translateY(-4px)';
+        }
+    </script>
+</body>
+</html> 

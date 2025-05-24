@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Cognifai</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Cognifai</a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="lessons.html">Lessons</a>
+                <a href="chat.html">Chat</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+        <!-- Welcome Strip -->
+        <div class="welcome-strip">
+            <h1 id="welcomeMessage">Welcome back!</h1>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                <div class="progress-bar" style="flex-grow: 1;">
+                    <div class="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <span>Level 1</span>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>XP Earned</h3>
+                <p style="font-size: 2rem; color: var(--primary);">0</p>
+                <p>of 1000 to next level</p>
+            </div>
+            <div class="stat-card">
+                <h3>Lessons Completed</h3>
+                <p style="font-size: 2rem; color: var(--primary);">0</p>
+                <p>out of 0 total</p>
+            </div>
+            <div class="stat-card">
+                <h3>Current Streak</h3>
+                <p style="font-size: 2rem; color: var(--primary);">0</p>
+                <p>days in a row</p>
+            </div>
+            <div class="stat-card">
+                <h3>Badges Earned</h3>
+                <p style="font-size: 2rem; color: var(--primary);">0</p>
+                <p>out of 0 available</p>
+            </div>
+        </div>
+
+        <!-- Next Lesson Preview -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Start Learning</h2>
+            </div>
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                <div style="flex-grow: 1;">
+                    <h3>No lessons yet</h3>
+                    <p>Start your learning journey by chatting with our AI</p>
+                </div>
+                <a href="chat.html" class="btn">Get Started</a>
+            </div>
+        </div>
+
+        <!-- Weekly Activity -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Weekly Activity</h2>
+            </div>
+            <div style="height: 200px; display: flex; align-items: flex-end; gap: 1rem; padding: 1rem;">
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+                <div style="flex: 1; background: var(--light); height: 0%; border-radius: 0.5rem;"></div>
+            </div>
+        </div>
+
+        <!-- Recent Achievements -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Recent Achievements</h2>
+            </div>
+            <div class="grid grid-3">
+                <div class="badge-card" style="opacity: 0.5;">
+                    <div class="badge-icon">🏆</div>
+                    <h3>First Lesson</h3>
+                    <p>Complete your first lesson</p>
+                </div>
+                <div class="badge-card" style="opacity: 0.5;">
+                    <div class="badge-icon">🔥</div>
+                    <h3>3-Day Streak</h3>
+                    <p>Learn for 3 days in a row</p>
+                </div>
+                <div class="badge-card" style="opacity: 0.5;">
+                    <div class="badge-icon">⭐</div>
+                    <h3>Quick Learner</h3>
+                    <p>Complete 5 lessons</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update welcome message
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.textContent = `Welcome back, ${userData.username || 'Learner'}!`;
+
+            // Check if there are any lessons
+            const lessons = JSON.parse(localStorage.getItem('lessons') || '[]');
+            if (lessons.length > 0) {
+                // Update stats based on lessons
+                const completedLessons = lessons.filter(lesson => lesson.completed).length;
+                const totalLessons = lessons.length;
+                const xp = completedLessons * 100; // Example XP calculation
+
+                document.querySelector('.stat-card:nth-child(1) p:nth-child(2)').textContent = xp;
+                document.querySelector('.stat-card:nth-child(2) p:nth-child(2)').textContent = completedLessons;
+                document.querySelector('.stat-card:nth-child(2) p:nth-child(3)').textContent = `out of ${totalLessons} total`;
+
+                // Update progress bar
+                const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+                document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+
+                // Update next lesson preview
+                const nextLesson = lessons.find(lesson => !lesson.completed);
+                if (nextLesson) {
+                    const lessonPreview = document.querySelector('.card:nth-child(3)');
+                    lessonPreview.querySelector('h3').textContent = nextLesson.title;
+                    lessonPreview.querySelector('p').textContent = nextLesson.description;
+                    lessonPreview.querySelector('.btn').textContent = 'Continue';
+                    lessonPreview.querySelector('.btn').onclick = () => window.location.href = 'lessons.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html> 

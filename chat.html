@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - Cognifai</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .chat-main {
+            max-width: 600px;
+            margin: 3rem auto 2rem auto;
+            background: var(--white);
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            overflow-y: auto;
+            background: var(--light);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text);
+            opacity: 0.7;
+            text-align: center;
+            padding: 2rem;
+        }
+        .empty-state h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .message {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.75rem;
+        }
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.25rem;
+            border-radius: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .message.user .message-content {
+            background: var(--primary);
+            color: var(--white);
+            border-bottom-right-radius: 0.25rem;
+        }
+        .message.ai .message-content {
+            background: var(--white);
+            color: var(--text);
+            border-bottom-left-radius: 0.25rem;
+            border: 1px solid var(--light);
+        }
+        .chat-input-bar {
+            padding: 1rem 1.25rem;
+            background: var(--white);
+            border-top: 1px solid var(--light);
+        }
+        .chat-input-bar input {
+            width: 100%;
+            border: 1px solid var(--light);
+            border-radius: 1.5rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            background: var(--light);
+            transition: all 0.2s;
+        }
+        .chat-input-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(79,70,229,0.1);
+        }
+        .chat-input-bar input::placeholder {
+            color: var(--text);
+            opacity: 0.5;
+        }
+        @media (max-width: 700px) {
+            .chat-main {
+                max-width: 98vw;
+                margin: 1rem auto;
+            }
+            .chat-header {
+                padding: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Cognifai</a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="lessons.html">Lessons</a>
+                <a href="chat.html">Chat</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="chat-main">
+            <div class="chat-header">
+                <h2>AI Learning Assistant</h2>
+                <p style="margin-top: 0.5rem; font-size: 1.1rem; opacity: 0.9;">Coming Soon</p>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="empty-state">
+                    <h3>AI Assistant Coming Soon</h3>
+                    <p>Our AI learning assistant is currently under development. Check back soon for an enhanced learning experience!</p>
+                </div>
+            </div>
+            <div class="chat-input-bar">
+                <input type="text" placeholder="Type a message...">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+    </script>
+</body>
+</html> 

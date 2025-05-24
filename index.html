@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognifai - Personalized Learning Platform</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #818cf8;
+            --text: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
+        }
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.5;
+        }
+        .nav {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .landing {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .landing-content {
+            color: var(--white);
+        }
+        .landing h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .landing p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--light);
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Cognifai</a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="lessons.html">Lessons</a>
+                <a href="chat.html">Chat</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Landing Page -->
+    <section class="landing">
+        <div class="landing-content">
+            <h1>Welcome to Cognifai</h1>
+            <p>Your personalized AI-powered learning journey begins here</p>
+            <a href="login.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </section>
+</body>
+</html> 

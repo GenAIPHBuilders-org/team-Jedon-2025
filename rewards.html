@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards - Cognifai</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Cognifai</a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="lessons.html">Lessons</a>
+                <a href="chat.html">Chat</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+        <!-- Rewards Header -->
+        <div class="welcome-strip">
+            <h1>Your Achievements</h1>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                <div class="progress-bar" style="flex-grow: 1;">
+                    <div class="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <span>0 Badges Earned</span>
+            </div>
+        </div>
+
+        <!-- Badges Grid -->
+        <div class="badge-grid">
+            <!-- Learning Badges -->
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🎓</div>
+                <h3>First Steps</h3>
+                <p>Complete your first lesson</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">📚</div>
+                <h3>Quick Learner</h3>
+                <p>Complete 5 lessons</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🎯</div>
+                <h3>Goal Setter</h3>
+                <p>Set your first learning goal</p>
+            </div>
+
+            <!-- Streak Badges -->
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🔥</div>
+                <h3>3-Day Streak</h3>
+                <p>Learn for 3 days in a row</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">⚡</div>
+                <h3>7-Day Streak</h3>
+                <p>Learn for 7 days in a row</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🌟</div>
+                <h3>30-Day Streak</h3>
+                <p>Learn for 30 days in a row</p>
+            </div>
+
+            <!-- Special Badges -->
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">💡</div>
+                <h3>Early Bird</h3>
+                <p>Complete a lesson before 9 AM</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🌙</div>
+                <h3>Night Owl</h3>
+                <p>Complete a lesson after 9 PM</p>
+            </div>
+            <div class="badge-card" style="opacity: 0.5;">
+                <div class="badge-icon">🎉</div>
+                <h3>Perfect Week</h3>
+                <p>Complete all daily goals for a week</p>
+            </div>
+        </div>
+
+        <!-- Start Learning Prompt -->
+        <div class="card" style="text-align: center; margin-top: 2rem;">
+            <h2>Start Your Learning Journey</h2>
+            <p style="margin: 1rem 0;">Chat with our AI to create your personalized lesson plan and start earning badges!</p>
+            <a href="chat.html" class="btn" style="display: inline-block; width: auto;">Chat with AI</a>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Check if there are any lessons
+            const lessons = JSON.parse(localStorage.getItem('lessons') || '[]');
+            if (lessons.length > 0) {
+                // Update progress based on completed lessons
+                const completedLessons = lessons.filter(lesson => lesson.completed).length;
+                const progress = (completedLessons / lessons.length) * 100;
+                
+                document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+                document.querySelector('.welcome-strip span').textContent = `${completedLessons} Badges Earned`;
+
+                // Update badge opacity based on achievements
+                // This would be expanded based on actual achievement logic
+                if (completedLessons > 0) {
+                    document.querySelector('.badge-card').style.opacity = '1';
+                }
+            }
+        }
+    </script>
+</body>
+</html> 
